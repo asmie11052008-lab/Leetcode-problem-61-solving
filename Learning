@@ -1,0 +1,53 @@
+LeetCode 61 – Rotate List (Learning Notes)
+
+Complexity
+
+- Time Complexity: "O(n)" – We traverse the linked list only a constant number of times.
+- Space Complexity: "O(1)" – Only a few pointer variables are used. No extra linked list or array is created.
+
+---
+
+Steps
+
+1. Check if the list is empty, has one node, or "k == 0". If yes, return "head".
+2. Find the length (L) of the linked list and the last node.
+3. Reduce unnecessary rotations using:
+   k = k % L;
+4. If "k == 0", return "head" because no rotation is needed.
+5. Connect the last node to the head to make the linked list circular.
+6. Move "L - k - 1" steps from the head to find the new last node.
+7. Store the new head:
+   newHead = newLast->next;
+8. Break the circular linked list:
+   newLast->next = NULL;
+9. Return "newHead".
+
+---
+
+Doubts Cleared
+
+Why do we return "newHead" instead of returning the whole linked list?
+
+A linked list is identified by its head pointer. There is no separate "list" object to return. After rotation, the first node changes, so we must return the pointer to the new first node ("newHead"). Returning "newHead" means we are returning the entire rotated linked list because "newHead" is the starting point of that list.
+
+---
+
+Why do we use modulo ("%") instead of subtraction ("-")?
+
+Modulo removes all complete rotations at once.
+
+Example:
+
+- "L = 5"
+- "k = 12"
+- "12 % 5 = 2"
+
+If we use subtraction only once:
+
+- "12 - 5 = 7" ❌ Still greater than the length.
+
+We would have to subtract repeatedly:
+
+- "12 → 7 → 2"
+
+Using "%" directly gives the correct number of rotations in one operation, making the solution simpler and more efficient.
